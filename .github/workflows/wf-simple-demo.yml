@@ -7,6 +7,20 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
 #  push:
   workflow_dispatch:
+    inputs:
+      customer:
+        description: "bla bla"
+        default: true
+        type: choice
+        options:
+          - A_CORP
+          - A_BANK
+          - A_WAR
+      operator_name:
+        description: "Your name"
+        default: Max
+        required: false
+        type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -35,3 +49,11 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Test input
+        run: |
+          echo "The customer is : $CUSTOMER"
+          echo "The operator is : $OPERATOR"
+        env:
+          CUSTOMER: ${{ inputs.customer }}
+          OPERATOR: ${{ inputs.operator_name }}
