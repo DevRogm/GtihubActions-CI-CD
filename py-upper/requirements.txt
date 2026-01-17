@@ -1,0 +1,9 @@
+altgraph==0.17.5
+iniconfig==2.3.0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.2
+pyinstaller==6.18.0
+pyinstaller-hooks-contrib==2025.11
+pytest==9.0.2
+setuptools==80.9.0
