@@ -19,6 +19,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   second-label:
+    needs: label
     permissions: 
       issues: write
     runs-on: ubuntu-latest
