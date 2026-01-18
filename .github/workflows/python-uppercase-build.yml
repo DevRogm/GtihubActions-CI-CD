@@ -1,0 +1,54 @@
+name: Python Uppercase Build
+
+on:
+  push:
+    paths:
+      - ".github/workflows/python-uppercase-build.yml"
+      - "py-upper/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "py-upper/requirements.txt"
+          update-pip: "true"
+
+      - name: Run tests
+        working-directory: py-upper
+        run: pytest -v
+  build:
+    runs-on: windows-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install python
+        uses: action/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Build Exe file
+        working-directory: py-upper
+        run: pyinstaller --onefile uppercase.py
+
+      - name: List files after build
+        run: ls -R
+
+      - name: Save artifacts to Github
+        uses: actions/upload-artifatc@v4
+        with:
+          name: uppercase-exe
+          path: py-upper/dist/uppercase.exe
+        
+      
