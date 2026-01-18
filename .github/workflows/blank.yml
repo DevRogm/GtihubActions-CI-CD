@@ -23,4 +23,4 @@ jobs:
           REPO: ${{ github.event.repository.full_name }}
           
       - name: Show comment id
-        run: echo "COMMENT_ID is $COMMENT_ID
+        run: echo "COMMENT_ID is $COMMENT_ID"
