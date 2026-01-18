@@ -20,13 +20,21 @@ jobs:
       - name: List files
         run: ls -R
 
+      - name: Configure cache for pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.15'
+          python-version: '3.13'
 
       - name: Check python version
         run: python -V
